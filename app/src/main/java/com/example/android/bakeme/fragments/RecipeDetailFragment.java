@@ -58,6 +58,7 @@ public class RecipeDetailFragment extends Fragment {
 
                 mRecipeIngredients = (ArrayList<Ingredient>) mSelectedRecipe.getmIngredients();
 
+                // for each ingredient, create string of text to contain all the details
                 for (int i = 0; i < mRecipeIngredients.size(); i++ ){
 
                     String formattedIngredientString  = formatIngredientString(mRecipeIngredients.get(i));
@@ -144,7 +145,6 @@ public class RecipeDetailFragment extends Fragment {
                 break;
             // if unit is of type UNIT, don't display anything for the unit - as in "3 eggs"
             default: unitToDisplay = "";
-
 
         }
         return unitToDisplay;
