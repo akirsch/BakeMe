@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/preparation_step_instructions"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/card_view_margin"
+    tools:text="@string/placeholder_step_long_description_content"
+    android:fontFamily="@font/roboto"
+    android:textColor="@color/colorText"
+    android:textAlignment="gravity"
+    android:textSize="@dimen/step_long_instruction_text_size">
+
+</TextView>

@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Bake Me</string>
+
+    <string name="placeholder_no_recipes">No Recipes Available</string>
+
+    <string name="placeholder_no_recipe_steps">No Recipe Steps Available</string>
+
+    <string name="no_connection_found">No wifi connection is currently available</string>
+
+    <string name="placeholder_recipe_step">1) This is the first step of this Recipe</string>
+
+    <string name="play_button_content_description">Clicking this view will play video for this recipe step</string>
+
+    <string name="recipe_list_image_description">This is an Image of the cake made in this recipe</string>
+
+    <string name="placeholder_step_long_description_content">2. To assemble the crust,
+        whisk together the cookie crumbs, 50 grams (1/4 cup) of sugar, and 1/2 teaspoon of salt for the crust in a medium bowl.
+        Stir in the melted butter and 1 teaspoon of vanilla extract until uniform.</string>
+
+    <string name="ingredients_title_tv">Ingredients</string>
+
+    <string name="servings_text">Serves: </string>
+
+    <string name="nutella_pie">Nutella Pie</string>
+
+    <string name="brownies">Brownies</string>
+
+    <string name="yellow_cake">Yellow Cake</string>
+
+    <string name="cheesecake">Cheesecake</string>
+
+</resources>
