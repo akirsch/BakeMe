@@ -12,7 +12,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static ArrayList<Recipe> arrayList;
+    public static ArrayList<Recipe> sRecipeList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

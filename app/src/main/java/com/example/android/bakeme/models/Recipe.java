@@ -5,13 +5,12 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe implements Parcelable {
 
     @SerializedName("id")
-    private int mRecipeId;
+    private Integer mRecipeId;
 
     @SerializedName("name")
     private String mRecipeName;
@@ -23,10 +22,10 @@ public class Recipe implements Parcelable {
     private List<PreparationStep> mPreparationSteps;
 
     @SerializedName("servings")
-    private int mServingSize;
+    private Integer mServingSize;
 
     @SerializedName("image")
-    private int mRecipeImageResourceId;
+    private String mRecipeImageResourceId;
 
 
     // Empty Constructor
@@ -41,11 +40,11 @@ public class Recipe implements Parcelable {
         this.mServingSize = servingSize;
     }
 
-    public int getmRecipeId() {
+    public Integer getmRecipeId() {
         return mRecipeId;
     }
 
-    public void setmRecipeId(int mRecipeId) {
+    public void setmRecipeId(Integer mRecipeId) {
         this.mRecipeId = mRecipeId;
     }
 
@@ -73,19 +72,19 @@ public class Recipe implements Parcelable {
         this.mPreparationSteps = mPreparationSteps;
     }
 
-    public int getmServingSize() {
+    public Integer getmServingSize() {
         return mServingSize;
     }
 
-    public void setmServingSize(int mServingSize) {
+    public void setmServingSize(Integer mServingSize) {
         this.mServingSize = mServingSize;
     }
 
-    public int getmRecipeImageResourceId() {
+    public String getmRecipeImageResourceId() {
         return mRecipeImageResourceId;
     }
 
-    public void setmRecipeImageResourceId(int mRecipeImageResourceId) {
+    public void setmRecipeImageResourceIdByName(String mRecipeImageResourceId) {
         this.mRecipeImageResourceId = mRecipeImageResourceId;
     }
 
@@ -102,7 +101,7 @@ public class Recipe implements Parcelable {
         dest.writeTypedList(this.mIngredients);
         dest.writeTypedList(this.mPreparationSteps);
         dest.writeInt(this.mServingSize);
-        dest.writeInt(this.mRecipeImageResourceId);
+        dest.writeString(this.mRecipeImageResourceId);
     }
 
     protected Recipe(Parcel in) {
@@ -111,7 +110,7 @@ public class Recipe implements Parcelable {
         this.mIngredients = in.createTypedArrayList(Ingredient.CREATOR);
         this.mPreparationSteps = in.createTypedArrayList(PreparationStep.CREATOR);
         this.mServingSize = in.readInt();
-        this.mRecipeImageResourceId = in.readInt();
+        this.mRecipeImageResourceId = in.readString();
     }
 
     public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>() {

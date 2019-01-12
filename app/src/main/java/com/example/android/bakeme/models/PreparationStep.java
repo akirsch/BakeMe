@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 public class PreparationStep implements Parcelable {
 
     @SerializedName("id")
-    private int mStepId;
+    private Integer mStepId;
 
     @SerializedName("shortDescription")
     private String mShortDescription;
@@ -29,11 +29,11 @@ public class PreparationStep implements Parcelable {
         this.mVideoURL = videoURL;
     }
 
-    public int getmStepId() {
+    public Integer getmStepId() {
         return mStepId;
     }
 
-    public void setmStepId(int mStepId) {
+    public void setmStepId(Integer mStepId) {
         this.mStepId = mStepId;
     }
 

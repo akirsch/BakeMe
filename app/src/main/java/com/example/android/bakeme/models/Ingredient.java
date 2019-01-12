@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 public class Ingredient implements Parcelable {
 
     @SerializedName("quantity")
-    private double mQuantity;
+    private Double mQuantity;
 
     @SerializedName("measure")
     private String mUnit;
@@ -26,11 +26,11 @@ public class Ingredient implements Parcelable {
 
     }
 
-    public double getmQuantity() {
+    public Double getmQuantity() {
         return mQuantity;
     }
 
-    public void setmQuantity(double mQuantity) {
+    public void setmQuantity(Double mQuantity) {
         this.mQuantity = mQuantity;
     }
 

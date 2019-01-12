@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.example.android.bakeme.adapters.RecipeStepListAdapter;
 import com.example.android.bakeme.models.Ingredient;
 import com.example.android.bakeme.models.PreparationStep;
 import com.example.android.bakeme.models.Recipe;
+import com.example.android.bakeme.utils.Utils;
 import com.google.android.exoplayer2.C;
 
 import java.util.ArrayList;
@@ -51,6 +53,10 @@ public class RecipeDetailFragment extends Fragment {
 
         mUnbinder = ButterKnife.bind(this, rootView);
 
+        if (savedInstanceState != null){
+            mRecipeIngredients = savedInstanceState.getParcelableArrayList(Constants.INGREDIENTS_KEY);
+        }
+
         if (getArguments() != null){
             mSelectedRecipe = getArguments().getParcelable(Constants.SELECTED_RECIPE_KEY);
 
@@ -61,10 +67,10 @@ public class RecipeDetailFragment extends Fragment {
                 // for each ingredient, create string of text to contain all the details
                 for (int i = 0; i < mRecipeIngredients.size(); i++ ){
 
-                    String formattedIngredientString  = formatIngredientString(mRecipeIngredients.get(i));
+                    String formattedIngredientString  = Utils.formatIngredientString(mRecipeIngredients.get(i));
                     // add each ingredient into the textView containing the ingredient list,
                     // starting a new line for each ingredient
-                    mIngredientsListView.append(formattedIngredientString + "\n");
+                    mIngredientsListView.append(formattedIngredientString);
                 }
 
             }
@@ -74,12 +80,22 @@ public class RecipeDetailFragment extends Fragment {
                 mRecipePreparationSteps = (ArrayList<PreparationStep>) mSelectedRecipe.getmPreparationSteps();
 
                 // initialize RecyclerView properties
-                mRecipeStepsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                RecyclerView.LayoutManager recipeStepsLayoutManager = new LinearLayoutManager(getActivity());
+                mRecipeStepsRecyclerView.setLayoutManager(recipeStepsLayoutManager);
                 mRecipeStepsRecyclerView.hasFixedSize();
 
+                // add a divider between each line for visual polish
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecipeStepsRecyclerView.getContext(),
+                        ((LinearLayoutManager) recipeStepsLayoutManager).getOrientation());
+                mRecipeStepsRecyclerView.addItemDecoration(dividerItemDecoration);
+
+                // determine whether fragment is being displayed on phone or tablet.
+                boolean isTwoPane = getArguments().getBoolean(Constants.BOOLEAN_IS_TWO_PANE_KEY);
+
                 // create instance of RecipeListAdapter
-                mRecipeStepListAdapter = new RecipeStepListAdapter();
+                mRecipeStepListAdapter = new RecipeStepListAdapter(getActivity(), isTwoPane);
                 mRecipeStepListAdapter.setStepList(mRecipePreparationSteps);
+                mRecipeStepListAdapter.setRecipe(mSelectedRecipe);
 
                 // connect the RecyclerView with the Adapter
                 mRecipeStepsRecyclerView.setAdapter(mRecipeStepListAdapter);
@@ -98,55 +114,13 @@ public class RecipeDetailFragment extends Fragment {
         mUnbinder.unbind();
     }
 
-    /**
-     * Helper method to format the list of ingredients to be displayed
-     * @param ingredient the ingredient to be formatted
-     * @return the formatted ingredient string
-     */
-    private String formatIngredientString (Ingredient ingredient){
-
-        double quantity = ingredient.getmQuantity();
-        String unitOfMeasure = ingredient.getmUnit();
-        String ingredientName = ingredient.getmIngredientName();
-
-        String unitOfMeasureToDisplay = getDisplayMeasure(unitOfMeasure);
-
-        return "\u2022 " + quantity + " " + unitOfMeasureToDisplay + " " + ingredientName;
-
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(Constants.INGREDIENTS_KEY, mRecipeIngredients);
     }
 
-    /**
-     * Helper method to select a user-friendly version of the unit measurement stored in the recipe data
-     * @param unitOfMeasure the String for the unit of measure stored in the Ingredient data
-     * @return the correct string to display
-     */
-    private String getDisplayMeasure (String unitOfMeasure){
 
-        String unitToDisplay;
 
-        switch (unitOfMeasure){
-            case Constants.GRAMS_JSON_NAME:
-                unitToDisplay = Constants.GRAMS_DISPLAY_NAME;
-                break;
-            case Constants.CUP_JSON_NAME:
-                unitToDisplay = Constants.CUP_DISPLAY_NAME;
-                break;
-            case Constants.OUNCE_JSON_NAME:
-                unitToDisplay = Constants.OUNCE_DISPLAY_NAME;
-                break;
-            case Constants.KILO_JSON_NAME:
-                unitToDisplay = Constants.KILO_DISPLAY_NAME;
-                break;
-            case Constants.TEA_SPOON_JSON_NAME:
-                unitToDisplay = Constants.TEA_SPOON_JSON_NAME;
-                break;
-            case Constants.TABLE_SPOON_JSON_NAME:
-                unitToDisplay = Constants.TABLE_SPOON_JSON_NAME;
-                break;
-            // if unit is of type UNIT, don't display anything for the unit - as in "3 eggs"
-            default: unitToDisplay = "";
 
-        }
-        return unitToDisplay;
-    }
 }

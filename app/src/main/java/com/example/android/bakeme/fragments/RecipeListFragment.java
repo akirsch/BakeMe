@@ -1,12 +1,14 @@
 package com.example.android.bakeme.fragments;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.android.bakeme.R;
 import com.example.android.bakeme.activities.MainActivity;
+import com.example.android.bakeme.activities.WidgetRecipeSelectorActivity;
 import com.example.android.bakeme.adapters.RecipeListAdapter;
 import com.example.android.bakeme.interfaces.RecipeApiService;
 import com.example.android.bakeme.models.Recipe;
@@ -59,8 +62,17 @@ public class RecipeListFragment extends Fragment {
 
         mUnbinder = ButterKnife.bind(this, rootView);
 
+        // when activity is being displayed in landscape mode, display recyclerView as a grid, not
+        // as a linear list
+        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+            mRecyclerView.setLayoutManager(new GridLayoutManager(parentActivity, 2 ));
+
+        } else {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(parentActivity));
+        }
+
         // initialize RecyclerView properties
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(parentActivity));
         mRecyclerView.hasFixedSize();
 
         // create instance of RecipeListAdapter
@@ -94,7 +106,7 @@ public class RecipeListFragment extends Fragment {
         NetworkInfo activeNetwork = Objects.requireNonNull(cm).getActiveNetworkInfo();
 
 
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return (activeNetwork != null && activeNetwork.isConnectedOrConnecting());
 
     }
 
@@ -106,13 +118,16 @@ public class RecipeListFragment extends Fragment {
         final Call<List<Recipe>> recipeCall = recipeApiService.getRecipes();
 
         recipeCall.enqueue(new Callback<List<Recipe>>() {
+
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
 
-                if (response.isSuccessful()){
+                int statusCode;
 
+                if (response.isSuccessful()){
+                    statusCode = response.code();
                     mRecipeList = (ArrayList<Recipe>) response.body();
-                    MainActivity.arrayList = mRecipeList;
+                    MainActivity.sRecipeList = mRecipeList;
                     mRecipeListAdapter.setRecipeList(mRecipeList);
                     mRecipeListAdapter.notifyDataSetChanged();
 
@@ -120,6 +135,7 @@ public class RecipeListFragment extends Fragment {
                     mProgressBar.setVisibility(View.GONE);
                     mEmptyListTextView.setVisibility(View.GONE);
                 } else {
+                    statusCode = response.code();
                     mRecyclerView.setVisibility(View.GONE);
                     mProgressBar.setVisibility(View.GONE);
                     mEmptyListTextView.setVisibility(View.VISIBLE);
@@ -130,6 +146,7 @@ public class RecipeListFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable throwable) {
+
                 mProgressBar.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.GONE);
                 mEmptyListTextView.setVisibility(View.VISIBLE);

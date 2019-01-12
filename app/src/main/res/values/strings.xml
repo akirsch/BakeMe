@@ -29,4 +29,13 @@
 
     <string name="cheesecake">Cheesecake</string>
 
+    <string name="step"> Step  </string>
+
+    <string name="introduction">Introduction</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+    <string name="widget_selection_message">Please select the recipe you would like to see in this Apps Widget:</string>
+    <string name="initial_widget_message">Click here to choose a recipe to display</string>
+
 </resources>

@@ -9,7 +9,8 @@
     tools:text="@string/placeholder_step_long_description_content"
     android:fontFamily="@font/roboto"
     android:textColor="@color/colorText"
-    android:textAlignment="gravity"
+    android:layout_gravity="top"
+    android:textAlignment="center"
     android:textSize="@dimen/step_long_instruction_text_size">
 
 </TextView>

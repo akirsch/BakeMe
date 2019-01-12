@@ -64,7 +64,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         int recipeimageResourceId = getRecipeImageId( mContext, recipeName);
 
         viewHolder.recipeNameView.setText(recipeName);
-        viewHolder.servingSizeView.setText(mContext.getString(R.string.servings_text + servings));
+        viewHolder.servingSizeView.setText(mContext.getString(R.string.servings_text ) + servings);
 
         RequestOptions requestOptions = new RequestOptions().centerCrop();
 
