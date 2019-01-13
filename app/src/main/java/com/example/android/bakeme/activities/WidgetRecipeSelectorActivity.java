@@ -127,7 +127,15 @@ public class WidgetRecipeSelectorActivity extends AppCompatActivity {
 
         } else {
 
-            mSelectedRecipe = mRecipeList.get(mRecipesRadioGroup.getCheckedRadioButtonId());
+            // get Id of checked radio button
+            int selectedRadioButtonId = mRecipesRadioGroup.getCheckedRadioButtonId();
+
+            // get the recipe that corresponds to the checked radio button
+            for (int i = 0; i < RADIO_BUTTON_ARRAY_LENGTH; i++) {
+                if(mRadioButtonArray[i].getId() == selectedRadioButtonId){
+                    mSelectedRecipe = mRecipeList.get(i);
+                }
+            }
             // get the name and list of ingredients for the selected recipe
             mSelectedRecipeName = mSelectedRecipe.getmRecipeName();
             mSelectedRecipeIngredients = (ArrayList<Ingredient>) mSelectedRecipe.getmIngredients();

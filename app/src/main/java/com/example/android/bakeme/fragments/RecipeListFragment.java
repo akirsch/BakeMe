@@ -18,8 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.bakeme.R;
+import com.example.android.bakeme.SimpleIdlingResource;
 import com.example.android.bakeme.activities.MainActivity;
-import com.example.android.bakeme.activities.WidgetRecipeSelectorActivity;
 import com.example.android.bakeme.adapters.RecipeListAdapter;
 import com.example.android.bakeme.interfaces.RecipeApiService;
 import com.example.android.bakeme.models.Recipe;
@@ -42,6 +42,7 @@ public class RecipeListFragment extends Fragment {
     private ArrayList<Recipe> mRecipeList;
     private RecipeListAdapter mRecipeListAdapter;
     private MainActivity parentActivity;
+    SimpleIdlingResource mSimpleIdlingResource;
 
 
     @BindView(R.id.recipe_list_recycler_view) RecyclerView mRecyclerView;
@@ -85,7 +86,13 @@ public class RecipeListFragment extends Fragment {
         mEmptyListTextView.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.VISIBLE);
 
+
         if (hasNetworkConnection()){
+
+            mSimpleIdlingResource = (SimpleIdlingResource) parentActivity.getIdlingResource();
+            if (mSimpleIdlingResource != null) {
+                mSimpleIdlingResource.setIdleState(false);
+            }
             getRecipeDataFromApi();
         } else {
             mRecyclerView.setVisibility(View.GONE);
@@ -122,10 +129,13 @@ public class RecipeListFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
 
-                int statusCode;
 
                 if (response.isSuccessful()){
-                    statusCode = response.code();
+
+                    if (mSimpleIdlingResource != null) {
+                        mSimpleIdlingResource.setIdleState(true);
+                    }
+
                     mRecipeList = (ArrayList<Recipe>) response.body();
                     MainActivity.sRecipeList = mRecipeList;
                     mRecipeListAdapter.setRecipeList(mRecipeList);
@@ -135,7 +145,6 @@ public class RecipeListFragment extends Fragment {
                     mProgressBar.setVisibility(View.GONE);
                     mEmptyListTextView.setVisibility(View.GONE);
                 } else {
-                    statusCode = response.code();
                     mRecyclerView.setVisibility(View.GONE);
                     mProgressBar.setVisibility(View.GONE);
                     mEmptyListTextView.setVisibility(View.VISIBLE);

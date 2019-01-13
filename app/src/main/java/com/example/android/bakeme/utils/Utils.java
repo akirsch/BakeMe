@@ -53,7 +53,7 @@ public class Utils {
                 unitToDisplay = Constants.TEA_SPOON_DISPLAY_NAME;
                 break;
             case Constants.TABLE_SPOON_JSON_NAME:
-                unitToDisplay = Constants.TABLE_SPOON_DISPALY_NAME;
+                unitToDisplay = Constants.TABLE_SPOON_DISPLAY_NAME;
                 break;
             // if unit is of type UNIT, don't display anything for the unit - as in "3 eggs"
             default: unitToDisplay = "";

@@ -16,7 +16,6 @@ import com.example.android.bakeme.fragments.RecipeDetailFragment;
 import com.example.android.bakeme.fragments.StepInstructionsFragment;
 import com.example.android.bakeme.fragments.VideoPlayerFragment;
 import com.example.android.bakeme.models.Recipe;
-import com.google.android.exoplayer2.C;
 
 import java.util.Objects;
 

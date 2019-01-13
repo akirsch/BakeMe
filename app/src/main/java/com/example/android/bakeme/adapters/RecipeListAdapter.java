@@ -16,7 +16,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.android.bakeme.Constants;
 import com.example.android.bakeme.R;
 import com.example.android.bakeme.activities.RecipeDetailActivity;
-import com.example.android.bakeme.models.Ingredient;
 import com.example.android.bakeme.models.Recipe;
 
 import java.util.ArrayList;
@@ -44,9 +43,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         // Inflate the custom layout
         View recipeItemView = inflater.inflate(R.layout.recipe_list_item, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(recipeItemView);
-
-        return viewHolder;
+        return new ViewHolder(recipeItemView);
     }
 
     @Override
@@ -61,7 +58,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         int servings = currentRecipe.getmServingSize();
 
         // determine which image to display based on name of current cake
-        int recipeimageResourceId = getRecipeImageId( mContext, recipeName);
+        int recipeImageResourceId = getRecipeImageId( mContext, recipeName);
 
         viewHolder.recipeNameView.setText(recipeName);
         viewHolder.servingSizeView.setText(mContext.getString(R.string.servings_text ) + servings);
@@ -70,7 +67,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
         // load correct cake image into image view
         Glide.with(mContext)
-                .load(recipeimageResourceId)
+                .load(recipeImageResourceId)
                 .apply(requestOptions)
                 .into(viewHolder.recipeImageView);
 

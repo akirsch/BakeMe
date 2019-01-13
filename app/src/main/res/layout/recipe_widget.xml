@@ -1,6 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,7 +9,6 @@
         style="@style/StandardTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/card_view_margin"
         android:paddingStart="@dimen/card_view_margin"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
@@ -22,15 +19,17 @@
 
     <TextView
         android:id="@+id/ingredient_list_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/card_view_margin"
-        android:layout_marginBottom="@dimen/card_view_margin"
-        android:layout_marginEnd="@dimen/card_view_margin"
+        android:paddingStart="@dimen/card_view_margin"
+        android:paddingBottom="6dp"
+        android:paddingEnd="@dimen/card_view_margin"
+        android:paddingTop="6dp"
         android:fontFamily="@font/roboto"
         android:textAlignment="viewStart"
         android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
         android:textColor="@color/colorText"
+        android:background="@android:color/white"
         android:text="@string/initial_widget_message" />
 
 

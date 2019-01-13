@@ -1,7 +1,6 @@
 package com.example.android.bakeme.fragments;
 
 import android.content.Context;
-import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,7 +31,6 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
@@ -95,7 +93,7 @@ public class VideoPlayerFragment extends Fragment implements ExoPlayer.EventList
 
         mUnbinder = ButterKnife.bind(this, rootView);
 
-        if (savedInstanceState != null){
+        if (savedInstanceState == null){
             setupMediaPlayerOrShowDefaultImage();
         }
 
@@ -252,9 +250,11 @@ public class VideoPlayerFragment extends Fragment implements ExoPlayer.EventList
         super.onResume();
         if (Util.SDK_INT <= 23 || mSimpleExoPlayer == null) {
             setupMediaPlayerOrShowDefaultImage();
+        } else {
+            mSimpleExoPlayer.setPlayWhenReady(true);
+            mSimpleExoPlayer.seekTo(mCurrentVideoPlayerPosition);
         }
-        mSimpleExoPlayer.setPlayWhenReady(true);
-        mSimpleExoPlayer.seekTo(mCurrentVideoPlayerPosition);
+
 
     }
 

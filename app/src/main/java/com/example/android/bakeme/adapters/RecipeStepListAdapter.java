@@ -1,6 +1,5 @@
 package com.example.android.bakeme.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -54,9 +53,7 @@ public class RecipeStepListAdapter extends RecyclerView.Adapter<RecipeStepListAd
         // Inflate the custom layout
         View stepItemView = inflater.inflate(R.layout.recipe_step_item, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(stepItemView);
-
-        return viewHolder;
+        return new ViewHolder(stepItemView);
     }
 
     @Override
@@ -71,9 +68,14 @@ public class RecipeStepListAdapter extends RecyclerView.Adapter<RecipeStepListAd
         // as steps are indexed starting at 0, the actual step number is one more than the step index
         final int stepNumber = currentStep.getmStepId();
 
-        String formattedDisplayDescription = stepNumber + ") " + stepDescription;
+        if (stepNumber == 0 ) {
+            viewHolder.stepShortDescriptionView.setText(stepDescription);
+        } else {
+            String formattedDisplayDescription = stepNumber + ") " + stepDescription;
 
-        viewHolder.stepShortDescriptionView.setText(formattedDisplayDescription);
+            viewHolder.stepShortDescriptionView.setText(formattedDisplayDescription);
+        }
+
 
         // get data to pass in Intent to open up PreparationStepActivity
         final String currentStepLongDescription = currentStep.getmLongDescription();

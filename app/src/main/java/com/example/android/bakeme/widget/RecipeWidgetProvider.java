@@ -10,8 +10,7 @@ import android.widget.RemoteViews;
 import com.example.android.bakeme.Constants;
 import com.example.android.bakeme.R;
 import com.example.android.bakeme.activities.WidgetRecipeSelectorActivity;
-import com.example.android.bakeme.models.Ingredient;
-import com.example.android.bakeme.utils.Utils;
+
 
 import java.util.ArrayList;
 

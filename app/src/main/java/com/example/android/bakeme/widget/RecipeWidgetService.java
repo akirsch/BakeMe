@@ -5,11 +5,10 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.annotation.Nullable;
 
 import com.example.android.bakeme.Constants;
-import com.example.android.bakeme.models.Ingredient;
+import com.example.android.bakeme.R;
 
 import java.util.ArrayList;
 
@@ -54,6 +53,8 @@ public class RecipeWidgetService extends IntentService {
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, RecipeWidgetProvider.class));
+
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.layout.recipe_widget);
 
         RecipeWidgetProvider.updateRecipeWidgets(this, appWidgetManager, appWidgetIds,ingredientDetails);
 

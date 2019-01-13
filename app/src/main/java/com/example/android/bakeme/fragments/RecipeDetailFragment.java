@@ -19,7 +19,6 @@ import com.example.android.bakeme.models.Ingredient;
 import com.example.android.bakeme.models.PreparationStep;
 import com.example.android.bakeme.models.Recipe;
 import com.example.android.bakeme.utils.Utils;
-import com.google.android.exoplayer2.C;
 
 import java.util.ArrayList;
 
